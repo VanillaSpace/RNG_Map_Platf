@@ -1,0 +1,20 @@
+{
+	"name": "MapA",
+	"plugin-id": "TiledBg",
+	"sid": 490632811981153,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"image": {
+		"width": 1024,
+		"height": 1024,
+		"originX": 0.5,
+		"originY": 0.5,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 2008241,
+		"useCollisionPoly": true
+	}
+}

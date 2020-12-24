@@ -1,0 +1,27 @@
+{
+	"name": "Flooring_Tilemap",
+	"plugin-id": "Tilemap",
+	"sid": 296701162130159,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "solid",
+			"name": "Solid",
+			"sid": 681846021963249
+		}
+	],
+	"effectTypes": [],
+	"image": {
+		"width": 1024,
+		"height": 2048,
+		"originX": 0.5,
+		"originY": 0.5,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 5320929,
+		"useCollisionPoly": true
+	},
+	"tile-collision-polys": {}
+}

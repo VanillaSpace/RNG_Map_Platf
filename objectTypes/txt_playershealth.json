@@ -1,0 +1,15 @@
+{
+	"name": "TXT_PlayersHealth",
+	"plugin-id": "Text",
+	"sid": 583687331203848,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Anchor",
+			"name": "Anchor",
+			"sid": 341704507025855
+		}
+	],
+	"effectTypes": []
+}

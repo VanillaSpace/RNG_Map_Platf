@@ -1,0 +1,532 @@
+{
+	"name": "Event sheet 1",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "RandomNumberGenerator",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "this number will be randomly choose between numbers to send the player to a certain map",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 982225581462650
+		},
+		{
+			"eventType": "variable",
+			"name": "PlayersHealth",
+			"type": "number",
+			"initialValue": "3",
+			"comment": "The player has 3 health, if the health goes to zero, the player dies",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 503455158801668
+		},
+		{
+			"eventType": "variable",
+			"name": "Score",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "Collect coins",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 984232773238285
+		},
+		{
+			"eventType": "comment",
+			"text": "When the game starts, the player's animation will be set to Idle"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 557343283513361
+				}
+			],
+			"actions": [
+				{
+					"id": "set-animation",
+					"objectClass": "Player",
+					"sid": 421590108320176,
+					"parameters": {
+						"animation": "\"Idle\"",
+						"from": "beginning"
+					}
+				}
+			],
+			"sid": 810861435838750
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Camera",
+			"description": "Every second in the game, the camera will check where the player is so that the camera will scroll to the player",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "Added a behavior \"Scroll To\" , changed the opacity to 0% in the Camera Sprite properties"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-tick",
+							"objectClass": "System",
+							"sid": 969829861600117
+						}
+					],
+					"actions": [
+						{
+							"id": "set-position",
+							"objectClass": "Camera",
+							"sid": 108488478050862,
+							"parameters": {
+								"x": "lerp(Self.X, Player.X, 0.03)",
+								"y": "lerp(Self.Y, Player.Y-150, 0.03)"
+							}
+						}
+					],
+					"sid": 648419331499714
+				}
+			],
+			"sid": 965733660245949
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Player's Variable",
+			"description": "Health, Scores ",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "Every second, the game will check the player's health and update the text based on it"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-tick",
+							"objectClass": "System",
+							"sid": 116345037744664
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "TXT_PlayersHealth",
+							"sid": 118556848526818,
+							"parameters": {
+								"text": "\"Current Health: \" & PlayersHealth"
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "TXT_Score",
+							"sid": 121842923610607,
+							"parameters": {
+								"text": "\"Score: \" & Score"
+							}
+						}
+					],
+					"sid": 422302805809294,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 451151022832932,
+									"parameters": {
+										"variable": "PlayersHealth",
+										"comparison": 3,
+										"value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "destroy",
+									"objectClass": "Player",
+									"sid": 378310768638519
+								},
+								{
+									"id": "set-visible",
+									"objectClass": "Dead",
+									"sid": 318386455461820,
+									"parameters": {
+										"visibility": "visible"
+									}
+								}
+							],
+							"sid": 492059295204663,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "key-is-down",
+											"objectClass": "Keyboard",
+											"sid": 538089092818435,
+											"parameters": {
+												"key": 82
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-visible",
+											"objectClass": "Dead",
+											"sid": 565757595924302,
+											"parameters": {
+												"visibility": "invisible"
+											}
+										},
+										{
+											"id": "reset-global-variables",
+											"objectClass": "System",
+											"sid": 464521959961332
+										},
+										{
+											"id": "restart-layout",
+											"objectClass": "System",
+											"sid": 943418241924566
+										}
+									],
+									"sid": 862692426186142
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "Player",
+							"sid": 947414752336668,
+							"parameters": {
+								"object": "coins"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "add-to-eventvar",
+							"objectClass": "System",
+							"sid": 787715515688064,
+							"parameters": {
+								"variable": "Score",
+								"value": "10"
+							}
+						},
+						{
+							"id": "destroy",
+							"objectClass": "coins",
+							"sid": 761375303431552
+						}
+					],
+					"sid": 189585471917918
+				}
+			],
+			"sid": 972436825550721
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Player Animation",
+			"description": "When the player moves or jumps, it adds a different animation from the idle stance",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "When the player moves"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-moved",
+							"objectClass": "Player",
+							"sid": 307542804861411,
+							"behaviorType": "Platform"
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "Player",
+							"sid": 402112063785156,
+							"parameters": {
+								"animation": "\"Walk\"",
+								"from": "current-frame"
+							}
+						}
+					],
+					"sid": 999946321128955
+				},
+				{
+					"eventType": "comment",
+					"text": "When the player stops moving"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-stopped",
+							"objectClass": "Player",
+							"sid": 213864403997449,
+							"behaviorType": "Platform"
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "Player",
+							"sid": 514862266595837,
+							"parameters": {
+								"animation": "\"Idle\"",
+								"from": "current-frame"
+							}
+						}
+					],
+					"sid": 558826749542076
+				},
+				{
+					"eventType": "comment",
+					"text": "When the player jumps"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-jump",
+							"objectClass": "Player",
+							"sid": 645880538325032,
+							"behaviorType": "Platform"
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "Player",
+							"sid": 210264407040884,
+							"parameters": {
+								"animation": "\"Jump\"",
+								"from": "current-frame"
+							}
+						}
+					],
+					"sid": 340831297396074
+				},
+				{
+					"eventType": "comment",
+					"text": "If the player gets hurt"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "Player",
+							"sid": 168620001430769,
+							"parameters": {
+								"object": "Spikes"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "Player",
+							"sid": 237353269886961,
+							"parameters": {
+								"animation": "\"Death\"",
+								"from": "current-frame"
+							}
+						}
+					],
+					"sid": 969596206633801
+				}
+			],
+			"sid": 220677537918729
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Randomly Spawn a Map",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "When the player touches the Exit Sign, it will randomly select a number from 1, 2 or 3 and  set it as the RNG (RandomNumGenerator)"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "Player",
+							"sid": 609432192962497,
+							"parameters": {
+								"object": "Exit"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 296603639256671,
+							"parameters": {
+								"variable": "RandomNumberGenerator",
+								"value": "choose(1,2,3)"
+							}
+						}
+					],
+					"sid": 698410644444649,
+					"children": [
+						{
+							"eventType": "comment",
+							"text": "if the RNG = 1 , it will send the player to Map A"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 243473127586630,
+									"parameters": {
+										"variable": "RandomNumberGenerator",
+										"comparison": 0,
+										"value": "1"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 254150389313248,
+									"parameters": {
+										"layout": "Map A"
+									}
+								}
+							],
+							"sid": 105357523956534
+						},
+						{
+							"eventType": "comment",
+							"text": "if the RNG = 2 , it will send the player to Map B"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 190936355254912,
+									"parameters": {
+										"variable": "RandomNumberGenerator",
+										"comparison": 0,
+										"value": "2"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 150548653856266,
+									"parameters": {
+										"layout": "Map B"
+									}
+								}
+							],
+							"sid": 589530259037418,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "if the RNG = 3 , it will send the player to Map C"
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 277854982380421,
+									"parameters": {
+										"variable": "RandomNumberGenerator",
+										"comparison": 0,
+										"value": "3"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 871975491671384,
+									"parameters": {
+										"layout": "Map C"
+									}
+								}
+							],
+							"sid": 633097809913607
+						}
+					]
+				}
+			],
+			"sid": 707825558618936
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Enemy",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "if the player touches the Spikes, they lose a health"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "Player",
+							"sid": 259160295583616,
+							"parameters": {
+								"object": "Spikes"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "subtract-from-eventvar",
+							"objectClass": "System",
+							"sid": 844043700677564,
+							"parameters": {
+								"variable": "PlayersHealth",
+								"value": "1"
+							}
+						}
+					],
+					"sid": 934070529623825
+				}
+			],
+			"sid": 271097841453100
+		}
+	],
+	"sid": 129106691715204
+}

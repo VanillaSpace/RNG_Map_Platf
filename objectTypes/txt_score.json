@@ -1,0 +1,15 @@
+{
+	"name": "TXT_Score",
+	"plugin-id": "Text",
+	"sid": 282934065982338,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Anchor",
+			"name": "Anchor",
+			"sid": 798829162037041
+		}
+	],
+	"effectTypes": []
+}
