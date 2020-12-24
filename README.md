@@ -3,12 +3,9 @@
 
 
 ![Alt Text](https://media1.giphy.com/media/q2gm2TCUUOajrjcBxA/giphy.gif)
-
+Trial and error Version
 
 # Assets Resource list 
-
-
-
 
 	Platformer Pack Redux
 	by Kenney Vleugels for Kenney (www.kenney.nl)
