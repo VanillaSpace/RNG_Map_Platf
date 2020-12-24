@@ -5,13 +5,13 @@
 ![Alt Text](https://media1.giphy.com/media/q2gm2TCUUOajrjcBxA/giphy.gif)
 
 
-Assets Resource list 
+# Assets Resource list 
 
-###############################################################################
+
 
 
 	Platformer Pack Redux
 	by Kenney Vleugels for Kenney (www.kenney.nl)
 
 
-###############################################################################
+
